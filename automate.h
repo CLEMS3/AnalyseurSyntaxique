@@ -5,6 +5,8 @@
 #include "lexer.h"
 #include "symbole.h"
 
+class State;
+
 class Automate {
 public:
     Automate();
@@ -17,4 +19,4 @@ protected:
     stack<Symbole*> symboles;
     stack<State*> etats;
     Lexer* lexer;
-}
+};

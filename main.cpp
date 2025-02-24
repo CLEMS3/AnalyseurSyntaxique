@@ -1,10 +1,11 @@
 #include <iostream>
-#include "lexer.h"
-
+#include <string>
+#include "automate.h"
 
 int main(void) {
    string chaine("(1+34)*123");
 
+   
    Lexer l(chaine);
 
    Symbole * s;
@@ -13,6 +14,10 @@ int main(void) {
       cout<<endl;
       l.Avancer();
    }
+
+   //Automate lalr = new Automate();
+   //lalr.lancer(chaine);
+
    return 0;
 }
 
