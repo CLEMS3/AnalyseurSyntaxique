@@ -16,7 +16,7 @@ State7::State7() : State("E7") {}
 State8::State8() : State("E8") {}
 State9::State9() : State("E9") {}
 
-void State0::transition(Automate& automate, Symbole* s) {
+bool State0::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case INT:
             automate.decalage(s, new State3());
@@ -29,11 +29,12 @@ void State0::transition(Automate& automate, Symbole* s) {
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
 }
 
-void State1::transition(Automate& automate, Symbole* s) {
+bool State1::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case PLUS:
             automate.decalage(s, new State4());
@@ -42,15 +43,16 @@ void State1::transition(Automate& automate, Symbole* s) {
             automate.decalage(s, new State5());
             break;
         case FIN:
-            return;
+            return false;
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
 }
 
-void State2::transition(Automate& automate, Symbole* s) {
+bool State2::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case INT:
             automate.decalage(s, new State3());
@@ -63,11 +65,33 @@ void State2::transition(Automate& automate, Symbole* s) {
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
 }
 
-void State4::transition(Automate& automate, Symbole* s) {
+bool State3::transition(Automate& automate, Symbole* s) {
+    switch (*s) {
+        case PLUS:
+            automate.reduction(1, new Plus());
+            break;
+        case MULT:
+            automate.reduction(1, new Mult());
+            break;
+        case CLOSEPAR:
+            automate.reduction(1, new Closepar());
+            break;
+        case FIN:
+            automate.reduction(1, new Fin());
+            break;
+        default:
+            automate.decalage(new Symbole(ERREUR), NULL);
+            return false;
+    }
+    return true;
+}
+
+bool State4::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case INT:
             automate.decalage(s, new State3());
@@ -80,11 +104,12 @@ void State4::transition(Automate& automate, Symbole* s) {
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
 }
 
-void State5::transition(Automate& automate, Symbole* s) {
+bool State5::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case INT:
             automate.decalage(s, new State3());
@@ -97,11 +122,12 @@ void State5::transition(Automate& automate, Symbole* s) {
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
 }
 
-void State6::transition(Automate& automate, Symbole* s) {
+bool State6::transition(Automate& automate, Symbole* s) {
     switch (*s) {
         case PLUS:
             automate.decalage(s, new State4());
@@ -114,6 +140,70 @@ void State6::transition(Automate& automate, Symbole* s) {
             break;
         default:
             automate.decalage(new Symbole(ERREUR), NULL);
-            return;
+            return false;
     }
+    return true;
+}
+
+bool State7::transition(Automate& automate, Symbole* s) {
+    switch (*s) {
+        case PLUS:
+            automate.reduction(3, new Plus());
+            break;
+        case MULT:
+            automate.decalage(s, new State5());
+            break;
+        case CLOSEPAR:
+            automate.reduction(3, new Closepar());
+            break;
+        case FIN:
+            automate.reduction(3, new Fin());
+            break;
+        default:
+            automate.decalage(new Symbole(ERREUR), NULL);
+            return false;
+    }
+    return true;
+}
+
+bool State8::transition(Automate& automate, Symbole* s) {
+    switch (*s) {
+        case PLUS:
+            automate.reduction(3, new Plus());
+            break;
+        case MULT:
+            automate.reduction(3, new Mult());
+            break;
+        case CLOSEPAR:
+            automate.reduction(3, new Closepar());
+            break;
+        case FIN:
+            automate.reduction(3, new Fin());
+            break;
+        default:
+            automate.decalage(new Symbole(ERREUR), NULL);
+            return false;
+    }
+    return true;
+}
+
+bool State9::transition(Automate& automate, Symbole* s) {
+    switch (*s) {
+        case PLUS:
+            automate.reduction(3, new Plus());
+            break;
+        case MULT:
+            automate.reduction(3, new Mult());
+            break;
+        case CLOSEPAR:
+            automate.reduction(3, new Closepar());
+            break;
+        case FIN:
+            automate.reduction(3, new Fin());
+            break;
+        default:
+            automate.decalage(new Symbole(ERREUR), NULL);
+            return false;
+    }
+    return true;
 }

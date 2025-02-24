@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -Wall -g
 
 # Source files
-SRCS = lexer.cpp main.cpp symbole.cpp state.cpp
+SRCS = lexer.cpp main.cpp symbole.cpp state.cpp automate.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
