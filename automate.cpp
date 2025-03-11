@@ -24,6 +24,7 @@ void Automate::lancer(string chaine) {
 	bool nextState = true;
 	this->lexer = new Lexer(chaine);
 	while (nextState) {
+		
 		Symbole *s = lexer->Consulter();
 		lexer->Avancer();
 		nextState = etats.top()->transition(*this, s);
@@ -34,8 +35,6 @@ void Automate::lancer(string chaine) {
 	} else {
 		cout << "Syntaxe non reconnue" << endl;
 	}
-
-	delete lexer;
 }
 
 void Automate::decalage(Symbole *s, State *e) {
@@ -77,6 +76,11 @@ void Automate::reduction(int n, Symbole *s) {
 		}
 	}
 
-	etats.top()->transition(*this, new Expression(val));
-	// TODO ajouter au lexer
+	cout << "🟰 Valeur calculée à la réduction : " << val << endl;
+    etats.top()->transition(*this, new Expression(val));
+	if (*s != FIN){
+		lexer->Reculer();
+	}
+	
+	
 }

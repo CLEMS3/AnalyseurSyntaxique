@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include <iostream>
 
 Symbole * Lexer::Consulter() {
    if (!tampon) {
@@ -7,7 +8,7 @@ Symbole * Lexer::Consulter() {
          tampon = new Symbole(FIN);
       else
       {
-
+         std::cout << "🔍 Lecture du caractère : '" << flux[tete] << "'" << std::endl;
          switch (flux[tete]) {
             case '(':
                tampon = new Symbole(OPENPAR);
@@ -34,9 +35,11 @@ Symbole * Lexer::Consulter() {
                      i++;
                   }
                   tete = tete+i;
+                  std::cout << "🔢 Nombre détecté : " << resultat << std::endl;
                   tampon = new Entier(resultat);
                }
                else {
+                  std::cout << "❌ Caractère inconnu détecté : '" << flux[tete] << "'" << std::endl;
                   tampon = new Symbole(ERREUR);
                }
          }
@@ -49,3 +52,6 @@ void Lexer::Avancer() {
    tampon = nullptr;
 }
 
+void Lexer::Reculer() {
+   if (tete>0) tete--;
+}
